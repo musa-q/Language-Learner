@@ -17,10 +17,8 @@ def read_csv(file_path):
 
 @app.route('/')
 def index():
-    # Update the file path to your CSV file
     csv_file_path = "./app/arabic/words1.csv"
     flashcards = read_csv(csv_file_path)
-    # print(flashcards)
     return render_template('index.html', flashcards=flashcards)
 
 if __name__ == '__main__':
