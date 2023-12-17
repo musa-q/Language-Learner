@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Arabic Flashcards</title>
+</head>
+<body>
+    <div class="flashcard-container">
+        {% for card in flashcards %}
+            <div class="flashcard" onclick="flipCard(this)">
+                <div class="card-front">
+                    {{ card.arabic }}
+                </div>
+                <div class="card-back">
+                    <p>{{ card.transliteration }}</p>
+                    <p>{{ card.translation }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>
