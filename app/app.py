@@ -17,9 +17,10 @@ def read_csv(file_path):
 
 @app.route('/')
 def index():
-    csv_file_path = "./app/arabic/words1.csv"
-    flashcards = read_csv(csv_file_path)
-    return render_template('index.html', flashcards=flashcards)
+    file_title = "common_words.csv"
+    filename = f"./app/arabic/{file_title}"
+    flashcards = read_csv(filename)
+    return render_template('index.html', flashcards=flashcards, filename=filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
