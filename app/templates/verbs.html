@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='verbs.css') }}">
+    <title>Verb Conjugation Practice</title>
+</head>
+
+<body>
+    <h1>Verb Conjugation Practice</h1>
+
+    <div id="practice-container">
+        <div class="info-text">
+            <h2>{{ word.english }}: <strong>{{ word.arabic }}</strong></h2>
+            <p id="pronoun-display">Pronoun: <strong>{{ pronoun }}</strong></p>
+            <p id="verb-display">Tense: <strong>{{ tense }}</strong></p>
+        </div>
+        <form id="conjugation-form" method="POST">
+            <label for="user-input">Your Answer:</label>
+            <input type="text" id="user-input" name="user-input" required>
+            <button type="button" onclick="checkAnswer()">Check</button>
+            <button type="button" id="next-button" onclick="nextQuestion()" style="display: none;">Next</button>
+        </form>
+        <p id="result-message"></p>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            var userInput = document.getElementById('user-input').value;
+            try {
+                const response = fetch('/verbs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `user-input=${userInput}`,
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('result-message').innerText = data;
+                        document.getElementById('next-button').style.display = 'block';
+                    });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function nextQuestion() {
+            // You can add logic here to fetch the next question or reset the UI
+            // For now, let's reload the page to simulate moving to the next question
+            location.reload();
+        }
+    </script>
+
+</body>
+
+</html>
